@@ -10,6 +10,7 @@ import java.net.URL;
 public class Draw extends JComponent{
 
 	private BufferedImage image;
+	private BufferedImage backgroundImage;
 	public URL resource = getClass().getResource("run0.png");
 
 	// circle's position
@@ -22,6 +23,7 @@ public class Draw extends JComponent{
 	public Draw(){
 		try{
 			image = ImageIO.read(resource);
+			backgroundImage = ImageIO.read(getClass().getResource("background.jpg"));
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -119,6 +121,7 @@ public class Draw extends JComponent{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.YELLOW);
+		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(image, x, y, this);
 	}
 }
