@@ -60,26 +60,32 @@ public class Draw extends JComponent{
 	}
 
 	public void attackAnimation(){
-		for(int ctr = 0; ctr < 5; ctr++){
-			try {
-				if(ctr==4){
-
+		Thread thread1 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 5; ctr++){
+					try {
+						if(ctr==4){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("attack"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
-				resource = getClass().getResource("attack"+ctr+".png");
-				Thread.sleep(100);
-                repaint();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
-			
-		}
-
-		try{
-			image = ImageIO.read(resource);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
+		});
+		thread1.start();
 	}
 
 	public void attack(){
