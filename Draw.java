@@ -199,14 +199,16 @@ public class Draw extends JComponent{
 		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
 
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, width, height);
+		// character grid for hero
+		// g.setColor(Color.YELLOW);
+		// g.fillRect(x, y, width, height);
 		g.drawImage(image, x, y, this);
 		
 		for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
-				g.setColor(Color.BLUE);
-				g.fillRect(monsters[c].xPos, monsters[c].yPos+5, monsters[c].width, monsters[c].height);
+				// character grid for monsters
+				// g.setColor(Color.BLUE);
+				// g.fillRect(monsters[c].xPos, monsters[c].yPos+5, monsters[c].width, monsters[c].height);
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
 				g.setColor(Color.GREEN);
 				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
