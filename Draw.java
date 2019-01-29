@@ -21,11 +21,9 @@ public class Draw extends JComponent{
 	public int state = 0;
 
 	Monster monster1;
-	Monster monster2;
 
 	public Draw(){
-		monster1 = new Monster(200, 200);
-		monster2 = new Monster(300, 200);
+		newMonster();
 
 		try{
 			image = ImageIO.read(resource);
@@ -34,6 +32,39 @@ public class Draw extends JComponent{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+	}
+
+	public void newMonster(){
+		monster1 = new Monster(200, 200);
+
+		Thread monThread = new Thread(new Runnable(){
+			public void run(){
+				while(monster1.idle){
+					for(int ctr = 0; ctr < 5; ctr++){
+						try {
+							if(ctr==4){
+								monster1.resource = getClass().getResource("slime/idle0.png");
+							}
+							else{
+								monster1.resource = getClass().getResource("slime/idle"+ctr+".png");
+							}
+							
+							try{
+								monster1.image = ImageIO.read(monster1.resource);
+							}
+							catch(IOException e){
+								e.printStackTrace();
+							}
+					        repaint();
+					        Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		monThread.start();
 	}
 
 	public void reloadImage(){
@@ -129,8 +160,6 @@ public class Draw extends JComponent{
 		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(image, x, y, this);
-
 		g.drawImage(monster1.image, monster1.xPos, monster1.yPos, this);
-		g.drawImage(monster2.image, monster2.xPos, monster2.yPos, this);
 	}
 }
