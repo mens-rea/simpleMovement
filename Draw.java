@@ -24,14 +24,13 @@ public class Draw extends JComponent{
 	// randomizer
 	public Random randomizer;
 
+	// enemy
+	public int enemyCount;
 	Monster[] monsters = new Monster[10];
 
 	public Draw(){
 		randomizer = new Random();
-
-		for(int x = 0; x < 10; x++){
-			monsters[x] = new Monster(randomizer.nextInt(500), randomizer.nextInt(500), this);
-		}
+		spawnEnemy();
 		
 		try{
 			image = ImageIO.read(resource);
@@ -39,6 +38,13 @@ public class Draw extends JComponent{
 		}
 		catch(IOException e){
 			e.printStackTrace();
+		}
+	}
+
+	public void spawnEnemy(){
+		if(enemyCount < 10){
+			monsters[enemyCount] = new Monster(randomizer.nextInt(500), randomizer.nextInt(500), this);
+			enemyCount++;
 		}
 	}
 
@@ -136,8 +142,10 @@ public class Draw extends JComponent{
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(image, x, y, this);
 		
-		for(int c = 0; c < 10; c++){
-			g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
+		for(int c = 0; c < monsters.length; c++){
+			if(monsters[c]!=null){
+				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
+			}	
 		}
 	}
 }
