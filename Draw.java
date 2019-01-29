@@ -23,7 +23,7 @@ public class Draw extends JComponent{
 	public Draw(){
 		try{
 			image = ImageIO.read(resource);
-			backgroundImage = ImageIO.read(getClass().getResource("background.jpg"));
+			backgroundImage = ImageIO.read(getClass().getResource("giphy.gif"));
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -90,8 +90,198 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
+	public void aattackAnimation(){
+		Thread thread2 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 7; ctr++){
+					try {
+						if(ctr==6){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("aattack"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread2.start();
+	}
+
+	public void aaattackAnimation(){
+		Thread thread3 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 7; ctr++){
+					try {
+						if(ctr==6){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("aaattack"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread3.start();
+	}
+
+	public void jumpAnimation(){
+		Thread thread4 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 4; ctr++){
+					try {
+						if(state == ctr){
+							resource = getClass().getResource("jump"+ctr+".png");
+							y=y - 4;
+							x=x + ;
+						}
+					else if(state > 5){
+							jumping = false;
+							state = 0;
+							System.out.println("Enter Falling");
+							fallAnimation();
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        state++;
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread4.start();
+	}
+
+	public void fallAnimation(){
+		Thread thread5 = new Thread(new Runnable(){
+			public void run(){
+				while(falling){
+				for(int ctr = 0; ctr < 1; ctr++){
+					try {
+						if(state == ctr){
+							System.out.println("Enter Falling 1");
+
+							resource = getClass().getResource("fall"+ctr+".png");
+							y=y + 10;
+							x=x + 5;
+							System.out.println(ctr);
+						}
+						else if(state > 3){
+							resource = getClass().getResource("idle"+ctr+".png");
+							falling = false;
+							state = 0;
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        state++
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread5.start();
+
+	public void dieAnimation(){
+		Thread thread6 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 7; ctr++){
+					try {
+						if(ctr==6){
+							resource = getClass().getResource("die0.png");
+						}
+						else{
+							resource = getClass().getResource("die"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread6.start();
+	}
+
+	public void getUpAnimation(){
+		Thread thread7 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 7; ctr++){
+					try {
+						if(ctr==6){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("getUp"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread7.start();
+	}
+
 	public void attack(){
 		attackAnimation();
+		aattackAnimation();
+		aaattackAnimation();
 	}
 
 	public void moveUp(){
@@ -118,6 +308,22 @@ public class Draw extends JComponent{
 		repaint();
 	}
 	
+	public void jump(){
+		jumpAnimation();
+	}
+
+	public void fall(){
+		fallAnimation();
+	}
+
+	public void die(){
+		dieAnimation();
+	}
+
+	public void getUp(){
+		getUpAnimation();
+	}
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.YELLOW);
