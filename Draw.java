@@ -17,6 +17,8 @@ public class Draw extends JComponent{
 	// circle's position
 	public int x = 300;
 	public int y = 300;
+	public int height = 0;
+	public int width = 0;
 
 	// animation states
 	public int state = 0;
@@ -39,6 +41,9 @@ public class Draw extends JComponent{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+
+		height = image.getHeight();
+		width = image.getWidth();
 	}
 
 	public void spawnEnemy(){
@@ -116,34 +121,81 @@ public class Draw extends JComponent{
 		y = y - 5;
 		reloadImage();
 		repaint();
+		checkCollision();
 	}
 
 	public void moveDown(){
 		y = y + 5;
 		reloadImage();
 		repaint();
+		checkCollision();
 	}
 
 	public void moveLeft(){
 		x = x - 5;
 		reloadImage();
 		repaint();
+		checkCollision();
 	}
 
 	public void moveRight(){
 		x = x + 5;
 		reloadImage();
 		repaint();
+		checkCollision();
+	}
+
+	public void checkCollision(){
+		int xChecker = x + width;
+		int yChecker = y;
+
+		for(int x=0; x<monsters.length; x++){
+			boolean collideX = false;
+			boolean collideY = false;
+
+			if(monsters[x]!=null){
+				if(yChecker > monsters[x].yPos){
+					if(yChecker-monsters[x].yPos < monsters[x].height){
+						collideY = true;
+					}
+				}
+				else{
+					if(monsters[x].yPos - yChecker < monsters[x].height){
+						collideY = true;
+					}
+				}
+
+				if(xChecker > monsters[x].xPos){
+					if(xChecker-monsters[x].xPos < monsters[x].width){
+						collideX = true;
+					}
+				}
+				else{
+					if(monsters[x].xPos - xChecker < 5){
+						collideX = true;
+					}
+				}
+			}
+
+			if(collideX && collideY){
+				System.out.println("collision!");
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
+
+		g.setColor(Color.YELLOW);
+		g.fillRect(x, y, width, height);
 		g.drawImage(image, x, y, this);
 		
 		for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
+				g.setColor(Color.BLUE);
+				g.fillRect(monsters[c].xPos, monsters[c].yPos+5, monsters[c].width, monsters[c].height);
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
 				g.setColor(Color.GREEN);
 				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
