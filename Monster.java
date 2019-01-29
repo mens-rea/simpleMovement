@@ -84,6 +84,22 @@ public class Monster{
 		monThread.start();
 	}
 
+	public void moveTo(int toX, int toY){
+		if(xPos<toX){
+			xPos++;
+		}
+		else if(xPos>toX){
+			xPos--;
+		}
+
+		if(yPos<toY){
+			yPos++;
+		}
+		else if(yPos>toY){
+			yPos--;
+		}
+	}
+
 	public void die(Draw compPass){
 		idle = false;
 		if(alive){

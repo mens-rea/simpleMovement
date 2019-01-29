@@ -212,6 +212,7 @@ public class Draw extends JComponent{
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
 				g.setColor(Color.GREEN);
 				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
+				monsters[c].moveTo(x,y);
 			}	
 		}
 	}
