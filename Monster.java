@@ -15,6 +15,7 @@ public class Monster{
 	public int life = 20;
 	public boolean idle = true;
 	public boolean alive = true;
+	public boolean contact = false;
 
 	public BufferedImage image;
 	public URL resource = getClass().getResource("slime/idle0.png");

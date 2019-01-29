@@ -108,6 +108,18 @@ public class Draw extends JComponent{
 						e.printStackTrace();
 					}
 				}
+
+				for(int x=0; x<monsters.length; x++){
+					if(monsters[x]!=null){
+						if(monsters[x].contact){
+							monsters[x].life = monsters[x].life - 10;
+						}
+
+						// if(monsters[x].life <= 0){
+						// 	monsters[x].die();
+						// }
+					}
+				}
 			}
 		});
 		thread1.start();
@@ -154,6 +166,8 @@ public class Draw extends JComponent{
 			boolean collideY = false;
 
 			if(monsters[x]!=null){
+				monsters[x].contact = false;
+
 				if(yChecker > monsters[x].yPos){
 					if(yChecker-monsters[x].yPos < monsters[x].height){
 						collideY = true;
@@ -179,6 +193,7 @@ public class Draw extends JComponent{
 
 			if(collideX && collideY){
 				System.out.println("collision!");
+				monsters[x].contact = true;
 			}
 		}
 	}
