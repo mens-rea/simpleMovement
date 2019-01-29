@@ -23,8 +23,7 @@ public class Draw extends JComponent{
 	Monster monster1;
 
 	public Draw(){
-		newMonster();
-
+		monster1 = new Monster(200, 200, this);
 		try{
 			image = ImageIO.read(resource);
 			backgroundImage = ImageIO.read(getClass().getResource("background.jpg"));
@@ -32,39 +31,6 @@ public class Draw extends JComponent{
 		catch(IOException e){
 			e.printStackTrace();
 		}
-	}
-
-	public void newMonster(){
-		monster1 = new Monster(200, 200);
-
-		Thread monThread = new Thread(new Runnable(){
-			public void run(){
-				while(monster1.idle){
-					for(int ctr = 0; ctr < 5; ctr++){
-						try {
-							if(ctr==4){
-								monster1.resource = getClass().getResource("slime/idle0.png");
-							}
-							else{
-								monster1.resource = getClass().getResource("slime/idle"+ctr+".png");
-							}
-							
-							try{
-								monster1.image = ImageIO.read(monster1.resource);
-							}
-							catch(IOException e){
-								e.printStackTrace();
-							}
-					        repaint();
-					        Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		});
-		monThread.start();
 	}
 
 	public void reloadImage(){
