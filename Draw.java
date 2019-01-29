@@ -79,58 +79,47 @@ public class Draw extends JComponent{
 
 	public void reloadImage(){
 		state++;
-
-		if(state == 0){
-			resource = getClass().getResource("run0.png");
+		if(direction == 0){
+			if(state == 0){
+				resource = getClass().getResource("run0.png");
+			}
+			else if(state == 1){
+				resource = getClass().getResource("run1.png");
+			}
+			else if(state == 2){
+				resource = getClass().getResource("run2.png");
+			}
+			else if(state == 3){
+				resource = getClass().getResource("run3.png");
+			}
+			else if(state == 4){
+				resource = getClass().getResource("run4.png");
+			}
+			else if(state == 5){
+				resource = getClass().getResource("run5.png");
+				state = 0;
+			}
+		}else {
+			if(state == 0){
+				resource = getClass().getResource("run0alt.png");
+			}
+			else if(state == 1){
+				resource = getClass().getResource("run1alt.png");
+			}
+			else if(state == 2){
+				resource = getClass().getResource("run2alt.png");
+			}
+			else if(state == 3){
+				resource = getClass().getResource("run3alt.png");
+			}
+			else if(state == 4){
+				resource = getClass().getResource("run4alt.png");
+			}
+			else if(state == 5){
+				resource = getClass().getResource("run5alt.png");
+				state = 0;
+			}
 		}
-		else if(state == 1){
-			resource = getClass().getResource("run1.png");
-		}
-		else if(state == 2){
-			resource = getClass().getResource("run2.png");
-		}
-		else if(state == 3){
-			resource = getClass().getResource("run3.png");
-		}
-		else if(state == 4){
-			resource = getClass().getResource("run4.png");
-		}
-		else if(state == 5){
-			resource = getClass().getResource("run5.png");
-			state = 0;
-		}
-
-		try{
-			image = ImageIO.read(resource);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void reloadImagealt(){
-		state++;
-
-		if(state == 0){
-			resource = getClass().getResource("run0alt.png");
-		}
-		else if(state == 1){
-			resource = getClass().getResource("run1alt.png");
-		}
-		else if(state == 2){
-			resource = getClass().getResource("run2alt.png");
-		}
-		else if(state == 3){
-			resource = getClass().getResource("run3alt.png");
-		}
-		else if(state == 4){
-			resource = getClass().getResource("run4alt.png");
-		}
-		else if(state == 5){
-			resource = getClass().getResource("run5alt.png");
-			state = 0;
-		}
-
 		try{
 			image = ImageIO.read(resource);
 		}
@@ -142,65 +131,51 @@ public class Draw extends JComponent{
 	public void attackAnimation(){
 		Thread thread1 = new Thread(new Runnable(){
 			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
-					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0.png");
-						}
-						else{
-							resource = getClass().getResource("attack"+ctr+".png");
-						}
-						
-						try{
-							image = ImageIO.read(resource);
-						}
-						catch(IOException e){
+				if(direction == 0){
+					for(int ctr = 0; ctr < 5; ctr++){
+						try {
+							if(ctr==4){
+								resource = getClass().getResource("run0.png");
+							}
+							else{
+								resource = getClass().getResource("attack"+ctr+".png");
+							}
+							
+							try{
+								image = ImageIO.read(resource);
+							}
+							catch(IOException e){
+								e.printStackTrace();
+							}
+					        repaint();
+					        Thread.sleep(100);
+						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-				        repaint();
-				        Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
-				}
-
-				for(int x=0; x<monsters.length; x++){
-					if(monsters[x]!=null){
-						if(monsters[x].contact){
-							monsters[x].life = monsters[x].life - 10;
-						}
-					}
-				}
-			}
-		});
-		thread1.start();
-	}
-	
-	public void attackAnimationalt(){
-		Thread thread1 = new Thread(new Runnable(){
-			public void run(){
-				for(int ctr = 0; ctr < 5; ctr++){
-					try {
-						if(ctr==4){
-							resource = getClass().getResource("run0alt.png");
-						}
-						else{
-							resource = getClass().getResource("attack"+ctr+"alt.png");
-						}
-						
-						try{
-							image = ImageIO.read(resource);
-						}
-						catch(IOException e){
+				} else{
+					for(int ctr = 0; ctr < 5; ctr++){
+						try {
+							if(ctr==4){
+								resource = getClass().getResource("run0alt.png");
+							}
+							else{
+								resource = getClass().getResource("attack"+ctr+"alt.png");
+							}
+							
+							try{
+								image = ImageIO.read(resource);
+							}
+							catch(IOException e){
+								e.printStackTrace();
+							}
+					        repaint();
+					        Thread.sleep(100);
+						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-				        repaint();
-				        Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
 				}
-
 				for(int x=0; x<monsters.length; x++){
 					if(monsters[x]!=null){
 						if(monsters[x].contact){
@@ -214,44 +189,28 @@ public class Draw extends JComponent{
 	}
 
 	public void attack(){
-		if (direction == 0){
-			attackAnimation();
-			} else{
-			attackAnimationalt();
-			}
+		attackAnimation();
 	}
 	
 
 	public void moveUp(){
 		y = y - 5;
-			if (direction == 0){
-			reloadImage();
-			repaint();
-			checkCollision();
-			} else{
-			reloadImagealt();
-			repaint();
-			checkCollision();
-			}
+		reloadImage();
+		repaint();
+		checkCollision();
 	}
 
 	public void moveDown(){
 		y = y + 5;
-			if (direction == 0){
-			reloadImage();
-			repaint();
-			checkCollision();
-			} else{
-			reloadImagealt();
-			repaint();
-			checkCollision();
-			}
+		reloadImage();
+		repaint();
+		checkCollision();
 	}
 
 	public void moveLeft(){
 		direction = 1;
 		x = x - 5;
-		reloadImagealt();
+		reloadImage();
 		repaint();
 		checkCollision();
 	}
