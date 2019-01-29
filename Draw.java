@@ -19,6 +19,7 @@ public class Draw extends JComponent{
 	public int y = 300;
 	public int height = 0;
 	public int width = 0;
+	public int direction = 0;
 
 	// animation states
 	public int state = 0;
@@ -106,6 +107,37 @@ public class Draw extends JComponent{
 			e.printStackTrace();
 		}
 	}
+	
+	public void reloadImagealt(){
+		state++;
+
+		if(state == 0){
+			resource = getClass().getResource("run0alt.png");
+		}
+		else if(state == 1){
+			resource = getClass().getResource("run1alt.png");
+		}
+		else if(state == 2){
+			resource = getClass().getResource("run2alt.png");
+		}
+		else if(state == 3){
+			resource = getClass().getResource("run3alt.png");
+		}
+		else if(state == 4){
+			resource = getClass().getResource("run4alt.png");
+		}
+		else if(state == 5){
+			resource = getClass().getResource("run5alt.png");
+			state = 0;
+		}
+
+		try{
+			image = ImageIO.read(resource);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 
 	public void attackAnimation(){
 		Thread thread1 = new Thread(new Runnable(){
@@ -143,33 +175,89 @@ public class Draw extends JComponent{
 		});
 		thread1.start();
 	}
+	
+	public void attackAnimationalt(){
+		Thread thread1 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 5; ctr++){
+					try {
+						if(ctr==4){
+							resource = getClass().getResource("run0alt.png");
+						}
+						else{
+							resource = getClass().getResource("attack"+ctr+"alt.png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+				for(int x=0; x<monsters.length; x++){
+					if(monsters[x]!=null){
+						if(monsters[x].contact){
+							monsters[x].life = monsters[x].life - 10;
+						}
+					}
+				}
+			}
+		});
+		thread1.start();
+	}
 
 	public void attack(){
-		attackAnimation();
+		if (direction == 0){
+			attackAnimation();
+			} else{
+			attackAnimationalt();
+			}
 	}
+	
 
 	public void moveUp(){
 		y = y - 5;
-		reloadImage();
-		repaint();
-		checkCollision();
+			if (direction == 0){
+			reloadImage();
+			repaint();
+			checkCollision();
+			} else{
+			reloadImagealt();
+			repaint();
+			checkCollision();
+			}
 	}
 
 	public void moveDown(){
 		y = y + 5;
-		reloadImage();
-		repaint();
-		checkCollision();
+			if (direction == 0){
+			reloadImage();
+			repaint();
+			checkCollision();
+			} else{
+			reloadImagealt();
+			repaint();
+			checkCollision();
+			}
 	}
 
 	public void moveLeft(){
+		direction = 1;
 		x = x - 5;
-		reloadImage();
+		reloadImagealt();
 		repaint();
 		checkCollision();
 	}
 
 	public void moveRight(){
+		direction = 0;
 		x = x + 5;
 		reloadImage();
 		repaint();

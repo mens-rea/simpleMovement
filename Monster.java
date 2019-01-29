@@ -20,7 +20,7 @@ public class Monster{
 	public BufferedImage image;
 	public URL resource = getClass().getResource("slime/idle0.png");
 
-	public Monster(Draw comp){
+	public Monster(final Draw comp){
 		try{
 			image = ImageIO.read(resource);
 		}
@@ -48,7 +48,7 @@ public class Monster{
 		animate(comp);
 	}
 
-	public void animate(Draw compPass){
+	public void animate(final Draw compPass){
 		Thread monThread = new Thread(new Runnable(){
 			public void run(){
 				while(idle){
@@ -100,7 +100,7 @@ public class Monster{
 		}
 	}
 
-	public void die(Draw compPass){
+	public void die(final Draw compPass){
 		idle = false;
 		if(alive){
 			Thread monThread = new Thread(new Runnable(){
