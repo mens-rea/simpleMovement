@@ -20,7 +20,13 @@ public class Draw extends JComponent{
 	// animation states
 	public int state = 0;
 
+	Monster monster1;
+	Monster monster2;
+
 	public Draw(){
+		monster1 = new Monster(200, 200);
+		monster2 = new Monster(300, 200);
+
 		try{
 			image = ImageIO.read(resource);
 			backgroundImage = ImageIO.read(getClass().getResource("background.jpg"));
@@ -123,5 +129,8 @@ public class Draw extends JComponent{
 		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(image, x, y, this);
+
+		g.drawImage(monster1.image, monster1.xPos, monster1.yPos, this);
+		g.drawImage(monster2.image, monster2.xPos, monster2.yPos, this);
 	}
 }
