@@ -13,6 +13,7 @@ public class Monster{
 
 	public int life = 20;
 	public boolean idle = true;
+	public boolean alive = true;
 
 	public BufferedImage image;
 	public URL resource = getClass().getResource("slime/idle0.png");
@@ -71,5 +72,33 @@ public class Monster{
 			}
 		});
 		monThread.start();
+	}
+
+	public void die(Draw compPass){
+		idle = false;
+		if(alive){
+			Thread monThread = new Thread(new Runnable(){
+				public void run(){
+					for(int ctr = 0; ctr < 4; ctr++){
+						try {					
+							resource = getClass().getResource("slime/die"+ctr+".png");
+							
+							try{
+								image = ImageIO.read(resource);
+							}
+							catch(IOException e){
+								e.printStackTrace();
+							}
+					        compPass.repaint();
+					        Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			monThread.start();
+		}
+		alive = false;
 	}
 }
