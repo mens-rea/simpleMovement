@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.Random;
 
 public class Draw extends JComponent{
 
@@ -20,10 +21,18 @@ public class Draw extends JComponent{
 	// animation states
 	public int state = 0;
 
-	Monster monster1;
+	// randomizer
+	public Random randomizer;
+
+	Monster[] monsters = new Monster[10];
 
 	public Draw(){
-		monster1 = new Monster(200, 200, this);
+		randomizer = new Random();
+
+		for(int x = 0; x < 10; x++){
+			monsters[x] = new Monster(randomizer.nextInt(500), randomizer.nextInt(500), this);
+		}
+		
 		try{
 			image = ImageIO.read(resource);
 			backgroundImage = ImageIO.read(getClass().getResource("background.jpg"));
@@ -126,6 +135,9 @@ public class Draw extends JComponent{
 		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(image, x, y, this);
-		g.drawImage(monster1.image, monster1.xPos, monster1.yPos, this);
+		
+		for(int c = 0; c < 10; c++){
+			g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
+		}
 	}
 }
