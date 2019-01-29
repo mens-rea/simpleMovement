@@ -67,11 +67,16 @@ public class Monster{
 							catch(IOException e){
 								e.printStackTrace();
 							}
+
 					        compPass.repaint();
 					        Thread.sleep(100);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					}
+
+					if(life<=0){
+						die(compPass);
 					}
 				}
 			}

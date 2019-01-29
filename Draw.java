@@ -114,10 +114,6 @@ public class Draw extends JComponent{
 						if(monsters[x].contact){
 							monsters[x].life = monsters[x].life - 10;
 						}
-
-						// if(monsters[x].life <= 0){
-						// 	monsters[x].die();
-						// }
 					}
 				}
 			}
