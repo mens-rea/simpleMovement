@@ -90,9 +90,42 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
+	public void attackAnimation2(){
+		Thread thread2 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 13; ctr++){
+					try {
+						if(ctr==12){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("punch/punch"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread2.start();
+	}
+
 	public void attack(){
 		attackAnimation();
 	}
+	public void punch(){
+		attackAnimation2();
+	}
+
 
 	public void moveUp(){
 		y = y - 5;
