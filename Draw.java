@@ -44,6 +44,29 @@ public class Draw extends JComponent{
 
 		height = image.getHeight();
 		width = image.getWidth();
+
+		startGame();
+	}
+
+	public void startGame(){
+		Thread gameThread = new Thread(new Runnable(){
+			public void run(){
+				while(true){
+					try{
+						for(int c = 0; c < monsters.length; c++){
+							if(monsters[c]!=null){
+								monsters[c].moveTo(x,y);
+								repaint();
+							}
+						}
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+							e.printStackTrace();
+					}
+				}
+			}
+		});
+		gameThread.start();
 	}
 
 	public void spawnEnemy(){
@@ -212,7 +235,6 @@ public class Draw extends JComponent{
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
 				g.setColor(Color.GREEN);
 				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
-				monsters[c].moveTo(x,y);
 			}	
 		}
 	}
