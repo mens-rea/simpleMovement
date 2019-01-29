@@ -15,8 +15,8 @@ public class Draw extends JComponent{
 	public URL resource = getClass().getResource("run0.png");
 
 	// circle's position
-	public int x = 30;
-	public int y = 30;
+	public int x = 300;
+	public int y = 300;
 
 	// animation states
 	public int state = 0;
@@ -145,6 +145,8 @@ public class Draw extends JComponent{
 		for(int c = 0; c < monsters.length; c++){
 			if(monsters[c]!=null){
 				g.drawImage(monsters[c].image, monsters[c].xPos, monsters[c].yPos, this);
+				g.setColor(Color.GREEN);
+				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
 			}	
 		}
 	}

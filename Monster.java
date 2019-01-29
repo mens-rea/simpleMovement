@@ -11,6 +11,7 @@ public class Monster{
 	public int xPos = 150;
 	public int yPos = 300;
 
+	public int life = 20;
 	public boolean idle = true;
 
 	public BufferedImage image;
