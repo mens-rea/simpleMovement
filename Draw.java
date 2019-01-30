@@ -90,8 +90,106 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
+	public void punchAnimation(){
+		Thread thread2 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 13; ctr++){
+					try {
+						if(ctr==12){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("punch"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(170);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread2.start();
+	}
+
+	public void suicideAnimation(){
+		Thread thread3 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 7; ctr++){
+					try {
+						if(ctr==6){
+							resource = getClass().getResource("suicide6.png");
+						}
+						else{
+							resource = getClass().getResource("suicide"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread3.start();
+	}
+
+	public void getupAnimation(){
+		Thread thread4 = new Thread(new Runnable(){
+			public void run(){
+				for(int ctr = 0; ctr < 8; ctr++){
+					try {
+						if(ctr==7){
+							resource = getClass().getResource("run0.png");
+						}
+						else{
+							resource = getClass().getResource("up"+ctr+".png");
+						}
+						
+						try{
+							image = ImageIO.read(resource);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+				        repaint();
+				        Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread4.start();
+	}
+	public void getUp(){
+		getupAnimation();
+	}
+
+	public void suicide(){
+		suicideAnimation();
+	}
+
 	public void attack(){
 		attackAnimation();
+	}
+
+	public void punch(){
+		punchAnimation();
 	}
 
 	public void moveUp(){
