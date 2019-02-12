@@ -12,28 +12,25 @@ public class MyFrame extends JFrame implements KeyListener{
 
 	public void keyPressed(KeyEvent e){
 		if(e.getKeyCode() == KeyEvent.VK_UP){
-			drawing.moveUp();
-			System.out.println("pos: " + drawing.x + ", " + drawing.y);
+			drawing.player.moveUp();
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-			drawing.moveRight();
-			System.out.println("pos: " + drawing.x + ", " + drawing.y);
+			drawing.player.moveRight();
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-			drawing.moveDown();
-			System.out.println("pos: " + drawing.x + ", " + drawing.y);
+			drawing.player.moveDown();
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-			drawing.moveLeft();
-			System.out.println("pos: " + drawing.x + ", " + drawing.y);
+			drawing.player.moveLeft();
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			drawing.attack();
+			drawing.player.attack();
 			System.out.println("attack");
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_S){
 			drawing.spawnEnemy();
 		}
+		System.out.println("pos: " + drawing.player.x + ", " + drawing.player.y);
 	}
 
 	public void keyReleased(KeyEvent e){
