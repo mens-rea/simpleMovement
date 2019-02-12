@@ -121,10 +121,12 @@ public class Monster{
 							e.printStackTrace();
 						}
 					}
+
+					alive = false;
+					compPass.checkDeath();
 				}
 			});
 			monThread.start();
 		}
-		alive = false;
 	}
 }

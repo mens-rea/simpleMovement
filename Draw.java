@@ -190,22 +190,26 @@ public class Draw extends JComponent{
 				if(yChecker > monsters[x].yPos){
 					if(yChecker-monsters[x].yPos < monsters[x].height){
 						collideY = true;
+						System.out.println("collideY");
 					}
 				}
 				else{
-					if(monsters[x].yPos - yChecker < monsters[x].height){
+					if(monsters[x].yPos - (yChecker+height) < monsters[x].height){
 						collideY = true;
+						System.out.println("collideY");
 					}
 				}
 
 				if(xChecker > monsters[x].xPos){
-					if(xChecker-monsters[x].xPos < monsters[x].width){
+					if((xChecker-width)-monsters[x].xPos < monsters[x].width){
 						collideX = true;
+						System.out.println("collideX");
 					}
 				}
 				else{
-					if(monsters[x].xPos - xChecker < 5){
+					if(monsters[x].xPos-xChecker < monsters[x].width){
 						collideX = true;
+						System.out.println("collideX");
 					}
 				}
 			}
@@ -219,7 +223,6 @@ public class Draw extends JComponent{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.YELLOW);
 		g.drawImage(backgroundImage, 0, 0, this);
 
 		// character grid for hero
@@ -227,7 +230,7 @@ public class Draw extends JComponent{
 		// g.fillRect(x, y, width, height);
 		g.drawImage(image, x, y, this);
 		
-		for(int c = 0; c < monsters.length; c++){
+		for(int c = 0; c < monsters.length; c++){		
 			if(monsters[c]!=null){
 				// character grid for monsters
 				// g.setColor(Color.BLUE);
@@ -236,6 +239,16 @@ public class Draw extends JComponent{
 				g.setColor(Color.GREEN);
 				g.fillRect(monsters[c].xPos+7, monsters[c].yPos, monsters[c].life, 2);
 			}	
+		}
+	}
+
+	public void checkDeath(){
+		for(int c = 0; c < monsters.length; c++){
+			if(monsters[c]!=null){
+				if(!monsters[c].alive){
+					monsters[c] = null;
+				}
+			}			
 		}
 	}
 }
