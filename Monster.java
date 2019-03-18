@@ -86,17 +86,17 @@ public class Monster{
 
 	public void moveTo(int toX, int toY){
 		if(xPos<toX){
-			xPos++;
+			xPos = xPos +10;
 		}
 		else if(xPos>toX){
-			xPos--;
+			xPos = xPos - 10;
 		}
 
 		if(yPos<toY){
-			yPos++;
+			yPos = yPos + 10;
 		}
 		else if(yPos>toY){
-			yPos--;
+			yPos = yPos - 10;
 		}
 	}
 
