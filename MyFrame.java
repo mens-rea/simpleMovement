@@ -27,7 +27,7 @@ public class MyFrame extends JFrame implements KeyListener{
 			drawing.moveLeft();
 			System.out.println("pos: " + drawing.x + ", " + drawing.y);
 		}
-		else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+		else if(e.getKeyCode() == KeyEvent.VK_A){
 			drawing.attack();
 			System.out.println("attack");
 		}
